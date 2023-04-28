@@ -7,10 +7,6 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
 
 WORKDIR /usr/src/app
 
-# Make sure user cloned caldera recursively before installing anything.
-ADD . .
-RUN if [ -z "$(ls plugins/stockpile)" ]; then echo "stockpile plugin not downloaded - please ensure you recursively cloned the caldera git repository and try again."; exit 1; fi
-
 RUN apt-get update && \
     apt-get -y install python3 python3-pip git curl
 
@@ -19,9 +15,11 @@ ARG WIN_BUILD=false
 RUN if [ "$WIN_BUILD" = "true" ] ; then apt-get -y install mingw-w64; fi
 
 # Install pip requirements
+COPY requirements.txt .
 RUN pip3 install --no-cache-dir -r requirements.txt
 
 # Set up config file and disable atomic by default
+COPY conf/default.yml .
 RUN grep -v "\- atomic" conf/default.yml > conf/local.yml
 
 # Install golang
@@ -29,6 +27,10 @@ RUN curl -L https://go.dev/dl/go1.17.6.linux-amd64.tar.gz -o go1.17.6.linux-amd6
 RUN rm -rf /usr/local/go && tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz;
 ENV PATH="${PATH}:/usr/local/go/bin"
 RUN go version;
+
+# Make sure user cloned caldera recursively
+ADD . .
+RUN if [ -z "$(ls plugins/stockpile)" ]; then echo "stockpile plugin not downloaded - please ensure you recursively cloned the caldera git repository and try again."; exit 1; fi
 
 # Compile default sandcat agent binaries, which will download basic golang dependencies.
 WORKDIR /usr/src/app/plugins/sandcat
