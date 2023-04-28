@@ -18,10 +18,6 @@ RUN if [ "$WIN_BUILD" = "true" ] ; then apt-get -y install mingw-w64; fi
 COPY requirements.txt .
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-# Set up config file and disable atomic by default
-COPY conf/default.yml .
-RUN grep -v "\- atomic" conf/default.yml > conf/local.yml
-
 # Install golang
 RUN curl -L https://go.dev/dl/go1.17.6.linux-amd64.tar.gz -o go1.17.6.linux-amd64.tar.gz
 RUN rm -rf /usr/local/go && tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz;
@@ -31,6 +27,9 @@ RUN go version;
 # Make sure user cloned caldera recursively
 ADD . .
 RUN if [ -z "$(ls plugins/stockpile)" ]; then echo "stockpile plugin not downloaded - please ensure you recursively cloned the caldera git repository and try again."; exit 1; fi
+
+# Set up config file and disable atomic by default
+RUN grep -v "\- atomic" conf/default.yml > conf/local.yml
 
 # Compile default sandcat agent binaries, which will download basic golang dependencies.
 WORKDIR /usr/src/app/plugins/sandcat
