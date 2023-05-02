@@ -3,6 +3,8 @@ name: Create and publish a Docker image
 on:
   release:
     types: [published]
+  repository_dispatch:
+    types: [run-caldera-synchronization]
   workflow_dispatch:
   workflow_call:
 
