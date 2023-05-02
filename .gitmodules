@@ -49,3 +49,6 @@
 [submodule "plugins/emu"]
 	path = plugins/emu
 	url = https://github.com/mitre/emu.git
+[submodule "plugins/earthquake"]
+	path = plugins/earthquake
+	url = https://github.com/secureware-srl/earthquake.git
