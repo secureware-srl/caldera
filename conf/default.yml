@@ -32,6 +32,8 @@ plugins:
 - atomic
 - compass
 - debrief
+- earthquake
+- emu
 - fieldmanual
 - manx
 - response
