@@ -1,5 +1,4 @@
 [![Release](https://img.shields.io/badge/dynamic/json?color=blue&label=Release&query=tag_name&url=https%3A%2F%2Fapi.github.com%2Frepos%2Fsecureware-srl%2Fcaldera%2Freleases%2Flatest)](https://github.com/secureware-srl/caldera/releases/latest)
-[![Security Status](https://github.com/mitre/caldera/actions/workflows/security.yml/badge.svg?branch=master)](https://github.com/mitre/caldera/actions/workflows/security.yml?query=branch%3Amaster)
 
 # CALDERA&trade;
 
