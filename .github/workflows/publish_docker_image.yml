@@ -35,6 +35,11 @@ jobs:
           ref: ${{ steps.get_latest.outputs.release }}
           token:  ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
 
+      - name: Git submodule update
+        run: |
+          git pull --recurse-submodules
+          git submodule update --remote --recursive
+
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
