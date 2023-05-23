@@ -37,7 +37,6 @@ jobs:
 
       - name: Git submodule update
         run: |
-          git pull --recurse-submodules
           git submodule update --remote --recursive
 
       - name: Login to Docker Hub
