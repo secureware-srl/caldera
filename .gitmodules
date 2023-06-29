@@ -52,3 +52,6 @@
 [submodule "plugins/earthquake"]
 	path = plugins/earthquake
 	url = https://github.com/secureware-srl/earthquake.git
+[submodule "plugins/leslie"]
+	path = plugins/leslie
+	url = https://github.com/secureware-srl/leslie

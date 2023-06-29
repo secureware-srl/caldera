@@ -40,6 +40,7 @@ plugins:
 - sandcat
 - stockpile
 - training
+- leslie
 port: 8888
 reports_dir: /tmp
 auth.login.handler.module: default
