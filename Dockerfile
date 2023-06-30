@@ -28,6 +28,10 @@ RUN go version;
 ADD . .
 RUN if [ -z "$(ls plugins/stockpile)" ]; then echo "stockpile plugin not downloaded - please ensure you recursively cloned the caldera git repository and try again."; exit 1; fi
 
+# Install plugins requirements recursively
+RUN chmod +x install_plugins_requirements.sh
+RUN ./install_plugins_requirements.sh
+
 # Set up config file and disable atomic by default
 RUN grep -v "\- atomic" conf/default.yml > conf/local.yml
 
