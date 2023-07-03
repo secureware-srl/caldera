@@ -135,8 +135,14 @@ class OperationApiManager(BaseApiManager):
 
     async def setup_operation(self, data: dict, access: BaseWorld.Access):
         """Applies default settings to an operation if data is missing."""
-        planner_id = data.pop('planner', {}).get('id', '')
+        planner = data.pop('planner', {})
+        planner_id = planner.get('id', '')
+        planner_params = planner.get('params', {})
         data['planner'] = await self._construct_and_dump_planner(planner_id)
+        try:
+            data['planner']['params'].update(planner_params)
+        except Exception as e:
+            self._log.error(f"Error while updating planner {data['planner']}", exc_info=e)
         adversary_id = data.pop('adversary', {}).get('adversary_id', '')
         data['adversary'] = await self._construct_and_dump_adversary(adversary_id)
         fact_source_id = data.pop('source', {}).get('id', '')
